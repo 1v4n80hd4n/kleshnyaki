@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-ink-900 text-cream font-sans antialiased;
+    background-image: radial-gradient(
+      120% 80% at 50% -10%,
+      rgba(74, 20, 22, 0.55),
+      transparent 60%
+    );
+    background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-claw text-cream;
+  }
+}
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.claw.600") transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-burgundy-600 rounded-full;
+    border: 2px solid theme("colors.ink.900");
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-claw-600;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-4 sm:px-6 lg:px-8;
+  }
+
+  .glass {
+    @apply bg-ink-800/70 backdrop-blur-xl;
+    box-shadow: inset 0 1px 0 rgba(244, 236, 224, 0.06);
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-claw focus-visible:ring-offset-2 focus-visible:ring-offset-ink-900;
+  }
+
+  .gold-rule {
+    height: 1px;
+    width: 3.5rem;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(201, 162, 75, 0.9),
+      transparent
+    );
+  }
+
+  .sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .sheen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.14) 48%,
+      transparent 66%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+  .sheen:hover::after {
+    transform: translateX(120%);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    @apply bg-ink-800/95 backdrop-blur-none;
+  }
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' /%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.35s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+.store-pin {
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  overflow: hidden;
+  border: 2px solid rgba(244, 236, 224, 0.25);
+  background: #0b0706;
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.store-pin img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.store-pin-active {
+  transform: scale(1.22);
+  border-color: #e2492c;
+  box-shadow: 0 10px 24px -4px rgba(226, 73, 44, 0.65);
+}
+
+.leaflet-container {
+  background: #14100e;
+  font-family: inherit;
+}
+
+.leaflet-bar a {
+  background: #1b1512;
+  color: #f4ece0;
+  border-bottom-color: rgba(244, 236, 224, 0.1);
+}
+
+.leaflet-bar a:hover {
+  background: #241b16;
+}
+
+.leaflet-control-attribution {
+  background: rgba(11, 7, 6, 0.7) !important;
+  color: #8a7d70 !important;
+}
+
+.leaflet-control-attribution a {
+  color: #b6a99a !important;
+}
