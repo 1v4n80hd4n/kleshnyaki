@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ShoppingBag, ArrowRight } from "lucide-react";
 import { formatUAH } from "@/lib/utils";
-import { MIN_ORDER_TOTAL, Z } from "@/lib/constants";
+import { MIN_ORDER_TOTAL, DELIVERY_FEE, FREE_DELIVERY_FROM, Z } from "@/lib/constants";
 import { useCartStore, useCartSubtotal } from "@/store/cart-store";
 import { CartLineItem } from "./CartLineItem";
 import { CartSummary } from "./CartSummary";
@@ -17,6 +17,7 @@ export function CartDrawer() {
   const subtotal = useCartSubtotal();
 
   const belowMin = subtotal < MIN_ORDER_TOTAL;
+  const total = subtotal + (subtotal >= FREE_DELIVERY_FROM ? 0 : DELIVERY_FEE);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -113,7 +114,7 @@ export function CartDrawer() {
                           : "bg-claw text-cream hover:bg-claw-400"
                       }`}
                     >
-                      Оформити · {formatUAH(subtotal)}
+                      Оформити · {formatUAH(total)}
                       <ArrowRight className="h-5 w-5" />
                     </Link>
                     <Link
